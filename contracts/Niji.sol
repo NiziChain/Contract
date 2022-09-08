@@ -15,6 +15,10 @@ contract Niji {
     mapping(uint => uint) private _royalties;
     // 親作品を返す
     mapping(uint => uint) private _parents;
+    // contents list
+    mapping(address => mapping(uint => uint)) _contents_lists;
+    // contents list
+    mapping(address => uint) _total_content_numbers;
 
     /*
         一次創作者の作品登録
@@ -26,6 +30,8 @@ contract Niji {
         next_content_id += 1;
         _authors[next_content_id] = msg.sender;
         _royalties[next_content_id] = _royalty;
+        _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = next_content_id;
+        _total_content_numbers[msg.sender] += 1;
         return next_content_id;
     }
 
@@ -44,6 +50,9 @@ contract Niji {
         next_content_id += 1;
         _authors[next_content_id] = msg.sender;
         _rights[next_content_id] = true;
+
+        _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = next_content_id;
+        _total_content_numbers[msg.sender] += 1;
         return next_content_id;
     }
 
@@ -82,5 +91,13 @@ contract Niji {
 
     function getNextContentId() public view returns(uint) {
         return next_content_id;
+    }
+
+    function getContentsList(address author) public view returns(uint[] memory) {
+        uint[] memory ret = new uint[](_total_content_numbers[author]);
+        for (uint i = 0; i < _total_content_numbers[author]; i++) {
+            ret[i] = _contents_lists[author][i];
+        }
+        return ret;
     }
 }

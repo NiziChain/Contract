@@ -28,8 +28,11 @@ describe("Niji", async () => {
   
   it("NextContentIdがちゃんとインクリメントされるか", async () => {
     await assert((await niji.functions.getNextContentId()).toString(), "1");
-    await niji.connect(author).functions.registerOriginal("10");
+    let parentContentId = await niji.connect(author).functions.registerOriginal("10");
+    console.log(parentContentId.value.toString());
     await assert((await niji.functions.getNextContentId()).toString(), "2");
-    await niji.connect(author2).functions.registerSecondary(1, {value: 10});
+    let childContentId = await niji.connect(author2).functions.registerSecondary(1, {value: 10});
+    console.log(await childContentId.wait());
   })
+ 
 })
