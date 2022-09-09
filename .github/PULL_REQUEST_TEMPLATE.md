@@ -1,6 +1,19 @@
-### All Submissions:
+**※1 PRの題名はよりわかりやすいものに必ず変更する**
 
-- [ ] Have you followed the guidelines in our [Contributing document](CONTRIBUTING.md)?
-- [ ] Have you checked to ensure there aren't other open [Pull Requests](../../../pulls) for the same update/change?
-- [ ] Does your submission pass tests?
-- [ ] Have you lint your code locally prior to submission?
+**※2 作業途中であればPR titleの頭に`[WIP]`を必ずつける**
+
+## notionへのリンク
+
+## やったこと
+- このプルリクで何をしたのか？
+
+## やらないこと
+- このプルリクでやらないことは何か？（あれば。なければ無しでおｋ）
+
+## 動作確認(要スクショ)
+- どんな動作確認を行ったのか？
+
+## 自動テスト以外の検証内容
+- テストコード以外の検証内容（あれば。）
+
+## レビュワーへの参考情報(実装上の懸念点や注意点などあれば記載)
