@@ -1,11 +1,11 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.1;
 
-// import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 contract Niji {
 
-    uint next_content_id = 0;
+    uint number_of_contents = 0;
 
     // ２次、1次は関係なし コンテンツIDから作者のアドレスを返す
     mapping(uint => address) private _authors;
@@ -20,6 +20,10 @@ contract Niji {
     // contents list
     mapping(address => uint) _total_content_numbers;
 
+    constructor() {
+
+    }
+
     /*
         一次創作者の作品登録
         ロイヤリティを設定できる。0も可能
@@ -27,12 +31,12 @@ contract Niji {
         @return contentId
     */
     function registerOriginal(uint _royalty) public returns (uint) {
-        next_content_id += 1;
-        _authors[next_content_id] = msg.sender;
-        _royalties[next_content_id] = _royalty;
-        _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = next_content_id;
+        number_of_contents += 1;
+        _authors[number_of_contents] = msg.sender;
+        _royalties[number_of_contents] = _royalty;
+        _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = number_of_contents;
         _total_content_numbers[msg.sender] += 1;
-        return next_content_id;
+        return number_of_contents;
     }
 
     /*
@@ -44,22 +48,24 @@ contract Niji {
     function registerSecondary(uint _parent_id) public payable returns (uint) {
         // ロイヤリティと同じ金額を入れないとリバート
         require(msg.value == _royalties[_parent_id]);
+        require(number_of_contents >= _parent_id && _parent_id != 0);
 
         payable(_authors[_parent_id]).transfer(msg.value);
 
-        next_content_id += 1;
-        _authors[next_content_id] = msg.sender;
-        _rights[next_content_id] = true;
+        number_of_contents += 1;
+        _authors[number_of_contents] = msg.sender;
+        _rights[number_of_contents] = true;
+        _parents[number_of_contents] = _parent_id;
 
-        _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = next_content_id;
+        _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = number_of_contents;
         _total_content_numbers[msg.sender] += 1;
-        return next_content_id;
+        return number_of_contents;
     }
 
     // 一次創作者が権利を剥奪する
     function deprive(uint _parent_id, uint _child_id) public {
         require(_parents[_child_id] == _parent_id);
-        require(msg.sender == _authors[_parent_id]);
+        require(msg.sender == _authors[_parent_id], "you are not the original owner");
         _rights[_child_id] = false;
     }
 
@@ -89,8 +95,8 @@ contract Niji {
         return _authors[_content_id];
     }
 
-    function getNextContentId() public view returns(uint) {
-        return next_content_id;
+    function getNumberOfContents() public view returns(uint) {
+        return number_of_contents;
     }
 
     function getContentsList(address author) public view returns(uint[] memory) {
@@ -99,5 +105,9 @@ contract Niji {
             ret[i] = _contents_lists[author][i];
         }
         return ret;
+    }
+
+    function getParent(uint child_id) public view returns(uint) {
+        return _parents[child_id];
     }
 }
