@@ -5,9 +5,6 @@
 
 A boilerplate hardhat project with sane defaults.
 
-- [solhint][1]
-- [eslint][6]
-- [prettier][2]
 - [typescript][4]
 - [typechain][3]
 - [dotenv][7]
