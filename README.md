@@ -26,6 +26,16 @@ Build the project
 Run tests
 
     npm test
+    
+## goerliテストネットへのデプロイ
+
+hardhat run scripts/deploy.ts --network goerli
+
+## ローカルで起動するには
+
+hardhat node
+
+別タブで hardhat run scripts/deploy.ts --network localhost
 
 [1]: https://www.typescriptlang.org/
 [2]: https://hardhat.org/plugins/hardhat-typechain.html
