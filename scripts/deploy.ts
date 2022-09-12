@@ -1,10 +1,10 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const Niji = await ethers.getContractFactory("Niji");
-  const niji = await Niji.deploy();
-  await niji.deployed();
-  console.log("niji address:", niji.address);
+  const Nizi = await ethers.getContractFactory("Nizi");
+  const nizi = await Nizi.deploy();
+  await nizi.deployed();
+  console.log("nizi address:", nizi.address);
 }
 
 main()
