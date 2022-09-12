@@ -1,9 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.1;
 
-//import "hardhat/console.sol";
-
-contract Niji {
+contract Nizi {
 
     uint number_of_contents = 0;
 
@@ -19,10 +17,6 @@ contract Niji {
     mapping(address => mapping(uint => uint)) _contents_lists;
     // contents list
     mapping(address => uint) _total_content_numbers;
-
-    constructor() {
-
-    }
 
     /*
         一次創作者の作品登録
