@@ -99,7 +99,13 @@ interface NiziInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setRoyalty", data: BytesLike): Result;
 
-  events: {};
+  events: {
+    "RegisterOriginal(address,uint256)": EventFragment;
+    "RegisterSecondary(address,uint256)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "RegisterOriginal"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RegisterSecondary"): EventFragment;
 }
 
 export class Nizi extends Contract {
@@ -443,7 +449,11 @@ export class Nizi extends Contract {
     ): Promise<void>;
   };
 
-  filters: {};
+  filters: {
+    RegisterOriginal(_from: string | null, royalty: null): EventFilter;
+
+    RegisterSecondary(_from: string | null, parent_id: null): EventFilter;
+  };
 
   estimateGas: {
     checkRight(
