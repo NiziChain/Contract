@@ -29,6 +29,7 @@ interface NiziInterface extends ethers.utils.Interface {
     "getContentsList(address)": FunctionFragment;
     "getNumberOfContents()": FunctionFragment;
     "getParent(uint256)": FunctionFragment;
+    "getRoyalty(uint256)": FunctionFragment;
     "recover(uint256,uint256)": FunctionFragment;
     "registerOriginal(uint256)": FunctionFragment;
     "registerSecondary(uint256)": FunctionFragment;
@@ -60,6 +61,10 @@ interface NiziInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "getRoyalty",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "recover",
     values: [BigNumberish, BigNumberish]
   ): string;
@@ -88,6 +93,7 @@ interface NiziInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getParent", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getRoyalty", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "recover", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "registerOriginal",
@@ -202,6 +208,20 @@ export class Nizi extends Contract {
       0: BigNumber;
     }>;
 
+    getRoyalty(
+      _content_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<{
+      0: BigNumber;
+    }>;
+
+    "getRoyalty(uint256)"(
+      _content_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<{
+      0: BigNumber;
+    }>;
+
     recover(
       _parent_id: BigNumberish,
       _child_id: BigNumberish,
@@ -303,6 +323,16 @@ export class Nizi extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getRoyalty(
+    _content_id: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "getRoyalty(uint256)"(
+    _content_id: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   recover(
     _parent_id: BigNumberish,
     _child_id: BigNumberish,
@@ -401,6 +431,16 @@ export class Nizi extends Contract {
 
     "getParent(uint256)"(
       child_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getRoyalty(
+      _content_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getRoyalty(uint256)"(
+      _content_id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -512,6 +552,16 @@ export class Nizi extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getRoyalty(
+      _content_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getRoyalty(uint256)"(
+      _content_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     recover(
       _parent_id: BigNumberish,
       _child_id: BigNumberish,
@@ -615,6 +665,16 @@ export class Nizi extends Contract {
 
     "getParent(uint256)"(
       child_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getRoyalty(
+      _content_id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getRoyalty(uint256)"(
+      _content_id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

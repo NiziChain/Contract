@@ -73,6 +73,7 @@ describe("Nizi", async () => {
   
   it("権利の確認と剥奪や付与", async () => {
     await nizi.connect(author).functions.registerOriginal("10");
+    assert.equal((await nizi.functions.getRoyalty(1)).toString(), "10");
     await nizi.connect(author2).functions.registerSecondary(1, {value: 10});
     assert.equal((await nizi.functions.checkRight(2))[0], true);
     assert.equal((await nizi.functions.getParent(2)).toString(), "1");

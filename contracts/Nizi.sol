@@ -108,6 +108,10 @@ contract Nizi {
         return ret;
     }
 
+    function getRoyalty(uint _content_id) public view returns(uint) {
+        return _royalties[_content_id];
+    }
+
     function getParent(uint child_id) public view returns(uint) {
         return _parents[child_id];
     }
