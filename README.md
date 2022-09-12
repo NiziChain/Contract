@@ -27,9 +27,10 @@ hardhat run scripts/deploy.ts --network goerli
 
 ## ローカルで起動するには
 
-hardhat node
+    hardhat node
 
-別タブで hardhat run scripts/deploy.ts --network localhost
+さらに、別タブで 
+    hardhat run scripts/deploy.ts --network localhost
 
 デフォルト設定だとlocalhost:8545でローカルイーサリアムノードが起動します
 
