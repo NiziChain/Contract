@@ -37,7 +37,14 @@ hardhat node
 
 別タブで hardhat run scripts/deploy.ts --network localhost
 
-[1]: https://www.typescriptlang.org/
-[2]: https://hardhat.org/plugins/hardhat-typechain.html
-[3]: https://nodejs.org/
-[4]: https://www.npmjs.com/package/dotenv
+デフォルト設定だとlocalhost:8545でローカルイーサリアムノードが起動します
+
+MetaMaskを開いてネットワークを追加します。
+
+ネットワーク名: Localhost 8545
+
+新しいRPC URL: http://localhost:8545
+
+chainId: 31337
+
+通貨記号: ETH
