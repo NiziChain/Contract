@@ -18,6 +18,9 @@ contract Nizi {
     // contents list
     mapping(address => uint) _total_content_numbers;
 
+    event RegisterOriginal(address indexed _from, uint royalty);
+    event RegisterSecondary(address indexed _from, uint parent_id);
+
     /*
         一次創作者の作品登録
         ロイヤリティを設定できる。0も可能
@@ -30,6 +33,8 @@ contract Nizi {
         _royalties[number_of_contents] = _royalty;
         _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = number_of_contents;
         _total_content_numbers[msg.sender] += 1;
+
+        emit RegisterOriginal(msg.sender, _royalty);
         return number_of_contents;
     }
 
@@ -53,6 +58,8 @@ contract Nizi {
 
         _contents_lists[msg.sender][_total_content_numbers[msg.sender]] = number_of_contents;
         _total_content_numbers[msg.sender] += 1;
+
+        emit RegisterSecondary(msg.sender, _parent_id);
         return number_of_contents;
     }
 
